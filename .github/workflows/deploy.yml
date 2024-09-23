@@ -27,11 +27,11 @@ jobs:
             echo "AWS_ACCESS_KEY_ID is set."
           fi
           
-          echo "Checking if AWS_REGION is set..."
-          if [ -z "${{ secrets.AWS_REGION }}" ]; then
-            echo "AWS_REGION is not set."
+          echo "Checking if AWS_SECRET_ACCESS_KEY is set..."
+          if [ -z "${{ secrets.AWS_SECRET_ACCESS_KEY }}" ]; then
+            echo "AWS_SECRET_ACCESS_KEY is not set."
           else
-            echo "AWS_REGION is set."
+            echo "AWS_SECRET_ACCESS_KEY is set."
           fi
 
       - name: Set up Terraform
@@ -45,5 +45,5 @@ jobs:
       - name: Terraform Apply
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: terraform apply -auto-approve
