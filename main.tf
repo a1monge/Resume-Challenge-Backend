@@ -34,4 +34,69 @@ resource "aws_s3_bucket_policy" "my_resume_bucket_policy" {
   })
 }
 
+resource "aws_api_gateway_rest_api" "counter_api" {
+  name        = "Counter"
+  description = "API for counting visitors"
+}
+
+resource "aws_api_gateway_resource" "increment_counter" {
+  rest_api_id = aws_api_gateway_rest_api.counter_api.id
+  parent_id   = aws_api_gateway_rest_api.counter_api.root_resource_id
+  path_part   = "incrementCounter"
+  
+}
+
+resource "aws_api_gateway_method" "get_increment_counter" {
+  rest_api_id = aws_api_gateway_rest_api.counter_api.id
+  resource_id = aws_api_gateway_resource.increment_counter.id
+  http_method = "GET"
+  authorization = "NONE"
+
+   request_parameters = {
+    "method.request.header.Access-Control-Allow-Origin" = true
+  }
+}
+
+resource "aws_api_gateway_integration_response" "integration_response" {
+  rest_api_id = aws_api_gateway_rest_api.counter_api.id
+  resource_id = aws_api_gateway_resource.increment_counter.id
+  http_method = aws_api_gateway_method.get_increment_counter.http_method
+  status_code = "200"
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"  # Or your specific origin
+  }
+}
+
+
+resource "aws_api_gateway_stage" "prod_stage" {
+  rest_api_id   = aws_api_gateway_rest_api.counter_api.id
+  stage_name    = "prod"
+  description    = "Production stage"
+  deployment_id = "7ifs29"  # Use the actual deployment ID
+}
+
+resource "aws_lambda_function" "visitor_counter" {
+  function_name = "LmbdaVistiorCounter"
+  role          = "arn:aws:iam::851725284012:role/DynamoDBFull"
+  handler       = "lambda_function.lambda_handler" # Your handler function
+  runtime       = "python3.12"                      # Your runtime
+
+  # Specify the local path to your packaged Lambda code
+  filename      = "./LmbdaVistiorCounter.zip"    # Update with the correct path
+
+  source_code_hash = filebase64sha256("./LmbdaVistiorCounter.zip")  # Update with the same path
+}
+
+
+
+
+
+
+
+
+
+
+
+
 

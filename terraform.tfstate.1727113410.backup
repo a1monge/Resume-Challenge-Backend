@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.9.5",
-  "serial": 42,
+  "serial": 21,
   "lineage": "23d4b71f-b840-cd5e-d793-255bafa369d2",
   "outputs": {},
   "resources": [
@@ -28,7 +28,7 @@
             "rest_api_id": "waqme3i9e4"
           },
           "sensitive_attributes": [],
-          "private": "bnVsbA==",
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjAifQ==",
           "dependencies": [
             "aws_api_gateway_resource.increment_counter",
             "aws_api_gateway_rest_api.counter_api"
@@ -61,6 +61,29 @@
     },
     {
       "mode": "managed",
+      "type": "aws_api_gateway_resource",
+      "name": "root_resource",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "nmkfuo3j9d",
+            "parent_id": "",
+            "path": "/",
+            "path_part": "",
+            "rest_api_id": "waqme3i9e4"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_api_gateway_rest_api.counter_api"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
       "type": "aws_api_gateway_rest_api",
       "name": "counter_api",
       "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
@@ -73,7 +96,7 @@
             "binary_media_types": [],
             "body": null,
             "created_date": "2024-09-02T20:20:09Z",
-            "description": "API for counting visitors",
+            "description": "API for visitor counting",
             "disable_execute_api_endpoint": false,
             "endpoint_configuration": [
               {
@@ -87,7 +110,7 @@
             "fail_on_warnings": null,
             "id": "waqme3i9e4",
             "minimum_compression_size": "",
-            "name": "Counter",
+            "name": "Counter API",
             "parameters": null,
             "policy": "",
             "put_rest_api_mode": "overwrite",
@@ -134,84 +157,6 @@
           "dependencies": [
             "aws_api_gateway_rest_api.counter_api"
           ]
-        }
-      ]
-    },
-    {
-      "mode": "managed",
-      "type": "aws_lambda_function",
-      "name": "visitor_counter",
-      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
-      "instances": [
-        {
-          "schema_version": 0,
-          "attributes": {
-            "architectures": [
-              "x86_64"
-            ],
-            "arn": "arn:aws:lambda:us-east-1:851725284012:function:LmbdaVistiorCounter",
-            "code_sha256": "7erGVnFB1H2Fa/AU76kE5d1mQClojtpdVngjqT+9Gc4=",
-            "code_signing_config_arn": "",
-            "dead_letter_config": [],
-            "description": "",
-            "environment": [],
-            "ephemeral_storage": [
-              {
-                "size": 512
-              }
-            ],
-            "file_system_config": [],
-            "filename": "./LmbdaVistiorCounter.zip",
-            "function_name": "LmbdaVistiorCounter",
-            "handler": "lambda_function.lambda_handler",
-            "id": "LmbdaVistiorCounter",
-            "image_config": [],
-            "image_uri": "",
-            "invoke_arn": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:851725284012:function:LmbdaVistiorCounter/invocations",
-            "kms_key_arn": "",
-            "last_modified": "2024-09-23T19:14:30.000+0000",
-            "layers": [],
-            "logging_config": [
-              {
-                "application_log_level": "",
-                "log_format": "Text",
-                "log_group": "/aws/lambda/LmbdaVistiorCounter",
-                "system_log_level": ""
-              }
-            ],
-            "memory_size": 128,
-            "package_type": "Zip",
-            "publish": false,
-            "qualified_arn": "arn:aws:lambda:us-east-1:851725284012:function:LmbdaVistiorCounter:$LATEST",
-            "qualified_invoke_arn": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:851725284012:function:LmbdaVistiorCounter:$LATEST/invocations",
-            "replace_security_groups_on_destroy": null,
-            "replacement_security_group_ids": null,
-            "reserved_concurrent_executions": -1,
-            "role": "arn:aws:iam::851725284012:role/DynamoDBFull",
-            "runtime": "python3.12",
-            "s3_bucket": null,
-            "s3_key": null,
-            "s3_object_version": null,
-            "signing_job_arn": "",
-            "signing_profile_version_arn": "",
-            "skip_destroy": false,
-            "snap_start": [],
-            "source_code_hash": "7erGVnFB1H2Fa/AU76kE5d1mQClojtpdVngjqT+9Gc4=",
-            "source_code_size": 784,
-            "tags": {},
-            "tags_all": {},
-            "timeout": 3,
-            "timeouts": null,
-            "tracing_config": [
-              {
-                "mode": "PassThrough"
-              }
-            ],
-            "version": "$LATEST",
-            "vpc_config": []
-          },
-          "sensitive_attributes": [],
-          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjo2MDAwMDAwMDAwMDAsImRlbGV0ZSI6NjAwMDAwMDAwMDAwLCJ1cGRhdGUiOjYwMDAwMDAwMDAwMH19"
         }
       ]
     },

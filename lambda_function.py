@@ -6,6 +6,7 @@ import json
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('VisitorCounter')
 
+
 def lambda_handler(event, context):
     counter_id = 'counter1'
 
