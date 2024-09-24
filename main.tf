@@ -1,5 +1,4 @@
 provider "aws" {
-
   region     = "us-east-1"
 }
 
@@ -37,8 +36,8 @@ resource "aws_s3_bucket_policy" "my_resume_bucket_policy" {
 
 # ACM
 resource "aws_acm_certificate" "almonge_resume_certificate" {
-  domain_name = "almonge-resume.com"
-  validation_method = "DNS" 
+  domain_name       = "almonge-resume.com"
+  validation_method = "DNS"
 }
 
 # Route 53 Hosted Zone for the domain
@@ -108,16 +107,16 @@ resource "aws_api_gateway_resource" "increment_counter" {
   rest_api_id = aws_api_gateway_rest_api.counter_api.id
   parent_id   = aws_api_gateway_rest_api.counter_api.root_resource_id
   path_part   = "incrementCounter"
-  
+
 }
 
 resource "aws_api_gateway_method" "get_increment_counter" {
-  rest_api_id = aws_api_gateway_rest_api.counter_api.id
-  resource_id = aws_api_gateway_resource.increment_counter.id
-  http_method = "GET"
+  rest_api_id   = aws_api_gateway_rest_api.counter_api.id
+  resource_id   = aws_api_gateway_resource.increment_counter.id
+  http_method   = "GET"
   authorization = "NONE"
 
-   request_parameters = {
+  request_parameters = {
     "method.request.header.Access-Control-Allow-Origin" = true
   }
 }
@@ -129,7 +128,7 @@ resource "aws_api_gateway_integration_response" "integration_response" {
   status_code = "200"
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"  # Or your specific origin
+    "method.response.header.Access-Control-Allow-Origin" = "'*'" # Or your specific origin
   }
 }
 
@@ -137,8 +136,8 @@ resource "aws_api_gateway_integration_response" "integration_response" {
 resource "aws_api_gateway_stage" "prod_stage" {
   rest_api_id   = aws_api_gateway_rest_api.counter_api.id
   stage_name    = "prod"
-  description    = "Production stage"
-  deployment_id = "7ifs29"  # Use the actual deployment ID
+  description   = "Production stage"
+  deployment_id = "7ifs29" # Use the actual deployment ID
 }
 
 # Lambda Function
@@ -146,18 +145,18 @@ resource "aws_lambda_function" "visitor_counter" {
   function_name = "LmbdaVistiorCounter"
   role          = "arn:aws:iam::851725284012:role/DynamoDBFull"
   handler       = "lambda_function.lambda_handler" # Your handler function
-  runtime       = "python3.12"                      # Your runtime
+  runtime       = "python3.12"                     # Your runtime
 
   # Specify the local path to your packaged Lambda code
-  filename      = "./LmbdaVistiorCounter.zip"    # Update with the correct path
+  filename = "./LmbdaVistiorCounter.zip" # Update with the correct path
 
-  source_code_hash = filebase64sha256("./LmbdaVistiorCounter.zip")  # Update with the same path
+  source_code_hash = filebase64sha256("./LmbdaVistiorCounter.zip") # Update with the same path
 }
 
 resource "aws_dynamodb_table" "VisitorCounter" {
-  name           = "VisitorCounter"
-  billing_mode   = "PAY_PER_REQUEST"
-  hash_key       = "CounterID"
+  name         = "VisitorCounter"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "CounterID"
 
   attribute {
     name = "CounterID"
@@ -179,6 +178,49 @@ resource "aws_dynamodb_table" "VisitorCounter" {
 
   lifecycle {
     prevent_destroy = false
+  }
+}
+
+# Cloudfront Distribution
+resource "aws_cloudfront_distribution" "distribution" {
+  aliases         = ["almonge-resume.com"]
+  enabled         = true
+  price_class     = "PriceClass_100"
+  http_version    = "http2and3"
+  is_ipv6_enabled = true
+
+  default_cache_behavior {
+    allowed_methods        = ["GET", "HEAD"]
+    cached_methods         = ["GET", "HEAD"]
+    compress               = true
+    viewer_protocol_policy = "redirect-to-https"
+    cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+    target_origin_id       = "almonge.com.s3-website-us-east-1.amazonaws.com"
+  }
+
+  origin {
+    domain_name = "almonge.com.s3-website-us-east-1.amazonaws.com"
+    origin_id   = "almonge.com.s3-website-us-east-1.amazonaws.com"
+    origin_path = "/build"
+
+    custom_origin_config {
+      origin_protocol_policy = "http-only"
+      http_port              = 80
+      https_port             = 443
+      origin_ssl_protocols   = ["SSLv3", "TLSv1", "TLSv1.1", "TLSv1.2"]
+    }
+  }
+
+  restrictions {
+    geo_restriction {
+      restriction_type = "none" # Allows access from all countries
+    }
+  }
+
+  viewer_certificate {
+    acm_certificate_arn      = "arn:aws:acm:us-east-1:851725284012:certificate/6b943c78-d702-4e92-85f8-9866e297f473"
+    ssl_support_method       = "sni-only"
+    minimum_protocol_version = "TLSv1.2_2021"
   }
 }
 

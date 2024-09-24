@@ -1,7 +1,7 @@
 {
   "version": 4,
   "terraform_version": "1.9.5",
-  "serial": 66,
+  "serial": 64,
   "lineage": "23d4b71f-b840-cd5e-d793-255bafa369d2",
   "outputs": {},
   "resources": [
@@ -226,6 +226,270 @@
           "dependencies": [
             "aws_api_gateway_rest_api.counter_api"
           ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudfront_distribution",
+      "name": "almonge",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "aliases": [
+              "almonge-resume.com"
+            ],
+            "arn": "arn:aws:cloudfront::851725284012:distribution/E1HTADTVVK0T56",
+            "caller_reference": "92208d62-0683-4085-929c-e6698806f6bf",
+            "comment": null,
+            "continuous_deployment_policy_id": "",
+            "custom_error_response": [],
+            "default_cache_behavior": [
+              {
+                "allowed_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "cache_policy_id": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                "cached_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "compress": true,
+                "default_ttl": 0,
+                "field_level_encryption_id": "",
+                "forwarded_values": [],
+                "function_association": [],
+                "lambda_function_association": [],
+                "max_ttl": 0,
+                "min_ttl": 0,
+                "origin_request_policy_id": "",
+                "realtime_log_config_arn": "",
+                "response_headers_policy_id": "",
+                "smooth_streaming": false,
+                "target_origin_id": "almonge.com.s3-website-us-east-1.amazonaws.com",
+                "trusted_key_groups": [],
+                "trusted_signers": [],
+                "viewer_protocol_policy": "redirect-to-https"
+              }
+            ],
+            "default_root_object": "",
+            "domain_name": "d14o4qhuqrhqgm.cloudfront.net",
+            "enabled": true,
+            "etag": "E46XRFSY2RZ0V",
+            "hosted_zone_id": "Z2FDTNDATAQYW2",
+            "http_version": "http2and3",
+            "id": "E1HTADTVVK0T56",
+            "in_progress_validation_batches": 0,
+            "is_ipv6_enabled": true,
+            "last_modified_time": "2024-08-25 16:06:22.833 +0000 UTC",
+            "logging_config": [],
+            "ordered_cache_behavior": [],
+            "origin": [
+              {
+                "connection_attempts": 3,
+                "connection_timeout": 10,
+                "custom_header": [],
+                "custom_origin_config": [
+                  {
+                    "http_port": 80,
+                    "https_port": 443,
+                    "origin_keepalive_timeout": 5,
+                    "origin_protocol_policy": "http-only",
+                    "origin_read_timeout": 30,
+                    "origin_ssl_protocols": [
+                      "SSLv3",
+                      "TLSv1",
+                      "TLSv1.1",
+                      "TLSv1.2"
+                    ]
+                  }
+                ],
+                "domain_name": "almonge.com.s3-website-us-east-1.amazonaws.com",
+                "origin_access_control_id": "",
+                "origin_id": "almonge.com.s3-website-us-east-1.amazonaws.com",
+                "origin_path": "/build",
+                "origin_shield": [],
+                "s3_origin_config": []
+              }
+            ],
+            "origin_group": [],
+            "price_class": "PriceClass_100",
+            "restrictions": [
+              {
+                "geo_restriction": [
+                  {
+                    "locations": [],
+                    "restriction_type": "none"
+                  }
+                ]
+              }
+            ],
+            "retain_on_delete": false,
+            "staging": false,
+            "status": "Deployed",
+            "tags": {},
+            "tags_all": {},
+            "trusted_key_groups": [
+              {
+                "enabled": false,
+                "items": []
+              }
+            ],
+            "trusted_signers": [
+              {
+                "enabled": false,
+                "items": []
+              }
+            ],
+            "viewer_certificate": [
+              {
+                "acm_certificate_arn": "arn:aws:acm:us-east-1:851725284012:certificate/6b943c78-d702-4e92-85f8-9866e297f473",
+                "cloudfront_default_certificate": false,
+                "iam_certificate_id": "",
+                "minimum_protocol_version": "TLSv1.2_2021",
+                "ssl_support_method": "sni-only"
+              }
+            ],
+            "wait_for_deployment": true,
+            "web_acl_id": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_cloudfront_distribution",
+      "name": "distribution",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "aliases": [
+              "almonge-resume.com"
+            ],
+            "arn": "arn:aws:cloudfront::851725284012:distribution/E1HTADTVVK0T56",
+            "caller_reference": "92208d62-0683-4085-929c-e6698806f6bf",
+            "comment": null,
+            "continuous_deployment_policy_id": "",
+            "custom_error_response": [],
+            "default_cache_behavior": [
+              {
+                "allowed_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "cache_policy_id": "658327ea-f89d-4fab-a63d-7e88639e58f6",
+                "cached_methods": [
+                  "GET",
+                  "HEAD"
+                ],
+                "compress": true,
+                "default_ttl": 0,
+                "field_level_encryption_id": "",
+                "forwarded_values": [],
+                "function_association": [],
+                "lambda_function_association": [],
+                "max_ttl": 0,
+                "min_ttl": 0,
+                "origin_request_policy_id": "",
+                "realtime_log_config_arn": "",
+                "response_headers_policy_id": "",
+                "smooth_streaming": false,
+                "target_origin_id": "almonge.com.s3-website-us-east-1.amazonaws.com",
+                "trusted_key_groups": [],
+                "trusted_signers": [],
+                "viewer_protocol_policy": "redirect-to-https"
+              }
+            ],
+            "default_root_object": "",
+            "domain_name": "d14o4qhuqrhqgm.cloudfront.net",
+            "enabled": true,
+            "etag": "E46XRFSY2RZ0V",
+            "hosted_zone_id": "Z2FDTNDATAQYW2",
+            "http_version": "http2and3",
+            "id": "E1HTADTVVK0T56",
+            "in_progress_validation_batches": 0,
+            "is_ipv6_enabled": true,
+            "last_modified_time": "2024-08-25 16:06:22.833 +0000 UTC",
+            "logging_config": [],
+            "ordered_cache_behavior": [],
+            "origin": [
+              {
+                "connection_attempts": 3,
+                "connection_timeout": 10,
+                "custom_header": [],
+                "custom_origin_config": [
+                  {
+                    "http_port": 80,
+                    "https_port": 443,
+                    "origin_keepalive_timeout": 5,
+                    "origin_protocol_policy": "http-only",
+                    "origin_read_timeout": 30,
+                    "origin_ssl_protocols": [
+                      "SSLv3",
+                      "TLSv1",
+                      "TLSv1.1",
+                      "TLSv1.2"
+                    ]
+                  }
+                ],
+                "domain_name": "almonge.com.s3-website-us-east-1.amazonaws.com",
+                "origin_access_control_id": "",
+                "origin_id": "almonge.com.s3-website-us-east-1.amazonaws.com",
+                "origin_path": "/build",
+                "origin_shield": [],
+                "s3_origin_config": []
+              }
+            ],
+            "origin_group": [],
+            "price_class": "PriceClass_100",
+            "restrictions": [
+              {
+                "geo_restriction": [
+                  {
+                    "locations": [],
+                    "restriction_type": "none"
+                  }
+                ]
+              }
+            ],
+            "retain_on_delete": false,
+            "staging": false,
+            "status": "Deployed",
+            "tags": {},
+            "tags_all": {},
+            "trusted_key_groups": [
+              {
+                "enabled": false,
+                "items": []
+              }
+            ],
+            "trusted_signers": [
+              {
+                "enabled": false,
+                "items": []
+              }
+            ],
+            "viewer_certificate": [
+              {
+                "acm_certificate_arn": "arn:aws:acm:us-east-1:851725284012:certificate/6b943c78-d702-4e92-85f8-9866e297f473",
+                "cloudfront_default_certificate": false,
+                "iam_certificate_id": "",
+                "minimum_protocol_version": "TLSv1.2_2021",
+                "ssl_support_method": "sni-only"
+              }
+            ],
+            "wait_for_deployment": true,
+            "web_acl_id": ""
+          },
+          "sensitive_attributes": [],
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
         }
       ]
     },
